@@ -9,6 +9,15 @@ async function createFootball(request, response){
     const newFootball = await Football.create(football)
     return response.status(201).json(newFootball)
 }
+async function updateFootball(request, response){
+    const id =  request.params.id
+    await Football.findByIdAndUpdate({_id: id}, request.body)
+    .then(result =>{
+        response.json('Success')
+    })
+    .catch(error => console.error(error))
+    
+}
 async function deleteFootball(request, response){
     const id = request.params.id
     await Football.findByIdAndDelete({_id: id});
@@ -17,5 +26,6 @@ async function deleteFootball(request, response){
 module.exports = {
     getFootball,
     createFootball,
+    updateFootball,
     deleteFootball
 }
